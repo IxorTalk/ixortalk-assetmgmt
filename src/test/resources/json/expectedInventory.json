@@ -1,0 +1,23 @@
+{
+  "_meta": {
+    "hostvars": {
+      "my-controller": {
+        "hostname": "my-controller",
+        "port": 3827
+
+      },
+      "my-other-controller": {
+        "hostname": "my-other-controller",
+        "port": 3827
+      }
+    }
+  },
+  "all": {
+    "hosts": [
+      "my-controller",
+      "my-other-controller"
+    ]
+  }
+}
+
+

@@ -1,0 +1,12 @@
+- targets:
+  - "hostA:9191"
+  labels:
+    hostname: "hostA"
+    port: 9191
+    type: "type-a"
+- targets:
+  - "hostB:9192"
+  labels:
+    hostname: "hostB"
+    port: 9192
+    type: "type-a"

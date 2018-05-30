@@ -1,0 +1,8 @@
+{
+  "assetProperties":{
+    "properties":{
+      "hostname": "my-other-controller",
+      "port": 3827
+    }
+  }
+}

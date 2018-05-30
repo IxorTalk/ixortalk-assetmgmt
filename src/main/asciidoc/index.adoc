@@ -1,0 +1,238 @@
+= Asset Management
+:doctype: book
+:icons: font
+:toc: left
+:toclevels: 4
+:sectlinks:
+:source-highlighter: highlightjs
+
+== OAuth
+
+This API is secured using Oauth. To access the API you need to retrieve an access token from the auth server
+and use it to call this API.
+
+== Assets
+
+=== Retrieving a single asset
+
+Via curl:
+include::{snippets}/assets/get/ok/curl-request.adoc[]
+
+HTTP request:
+include::{snippets}/assets/get/ok/http-request.adoc[]
+
+==== Response OK
+
+include::{snippets}/assets/get/ok/http-response.adoc[]
+
+==== Response: Not Found
+
+include::{snippets}/assets/get/notfound/http-response.adoc[]
+
+=== Retrieving all assets
+
+Returns the list of all devices:
+
+Via curl:
+include::{snippets}/assets/get-all/ok/curl-request.adoc[]
+
+HTTP request:
+include::{snippets}/assets/get-all/ok/http-request.adoc[]
+
+===== Response fields
+include::{snippets}//assets/get-all/ok/response-fields.adoc[]
+
+==== Response OK
+
+include::{snippets}/assets/get-all/ok/http-response.adoc[]
+
+=== Query assets
+
+Returns the list of devices matching the given asset properties:
+
+Via curl:
+include::{snippets}/assets/search/curl-request.adoc[]
+
+HTTP request:
+include::{snippets}/assets/search/http-request.adoc[]
+
+===== Response fields
+include::{snippets}/assets/search/response-fields.adoc[]
+
+==== Response OK
+
+include::{snippets}/assets/search/http-response.adoc[]
+
+=== Find one
+
+Find one has the same semantics as search but expects to find a single result, fails otherwise.
+
+==== Request
+
+Via curl:
+include::{snippets}/assets/find-one/curl-request.adoc[]
+
+HTTP request:
+include::{snippets}/assets/find-one/http-request.adoc[]
+
+==== Response
+
+===== Response OK
+
+include::{snippets}/assets/find-one/http-response.adoc[]
+
+===== Response no result
+
+include::{snippets}/assets/find-one-no-result/http-response.adoc[]
+
+===== Response multiple results
+
+include::{snippets}/assets/find-one-multiple-result/http-response.adoc[]
+
+=== Creating a new Asset
+
+==== Request
+
+Via curl:
+include::{snippets}/assets/post/created/curl-request.adoc[]
+
+HTTP request:
+include::{snippets}/assets/post/created/http-request.adoc[]
+
+===== Request Fields
+include::{snippets}/assets/post/created/request-fields.adoc[]
+
+===== Request Headers
+include::{snippets}/assets/post/created/request-headers.adoc[]
+
+==== Response
+
+===== HTTP response:
+include::{snippets}/assets/post/created/http-response.adoc[]
+
+===== Response Headers
+include::{snippets}/assets/post/created/response-headers.adoc[]
+
+=== Updating an existing asset
+
+==== Request
+
+Via curl:
+include::{snippets}/assets/put/ok/curl-request.adoc[]
+
+HTTP request:
+include::{snippets}/assets/put/ok/http-request.adoc[]
+
+===== Request Fields
+include::{snippets}/assets/put/ok/request-fields.adoc[]
+
+===== Request Headers
+include::{snippets}/assets/put/ok/request-headers.adoc[]
+
+===== Path Parameters
+include::{snippets}/assets/put/ok/path-parameters.adoc[]
+
+==== Response
+
+===== HTTP response:
+
+Entity exists:
+
+include::{snippets}/assets/put/ok/http-response.adoc[]
+
+Entity does not exist:
+
+include::{snippets}/assets/put/doesnt_exist/http-response.adoc[]
+
+=== Updating an existing asset's properties
+
+This call updates the specified properties.  Properties not present in the request will remain unchanged in the store.
+
+==== Request
+
+Via curl:
+include::{snippets}/assets/put-properties/ok/curl-request.adoc[]
+
+HTTP request:
+include::{snippets}/assets/put-properties/ok/http-request.adoc[]
+
+===== Request Headers
+include::{snippets}/assets/put-properties/ok/request-headers.adoc[]
+
+===== Path Parameters
+include::{snippets}/assets/put-properties/ok/path-parameters.adoc[]
+
+==== Response
+
+===== HTTP response:
+
+Entity exists:
+
+include::{snippets}/assets/put-properties/ok/http-response.adoc[]
+
+Entity does not exist:
+
+include::{snippets}/assets/put-properties/not-found/http-response.adoc[]
+
+=== Updating asset properties in bulk
+
+This call updates asset properties in bulk for multiple assets.
+
+==== Request
+
+Via curl:
+include::{snippets}/assets/update-bulk/ok/curl-request.adoc[]
+
+HTTP request:
+include::{snippets}/assets/update-bulk/ok/http-request.adoc[]
+
+===== Request Headers
+include::{snippets}/assets/update-bulk/ok/request-headers.adoc[]
+
+===== Request Fields
+include::{snippets}/assets/post/created/request-fields.adoc[]
+
+==== Response
+
+===== HTTP response:
+
+Normal response:
+
+include::{snippets}/assets/update-bulk/ok/http-response.adoc[]
+
+If one of the assets cannot be found:
+
+include::{snippets}/assets/update-bulk/one-not-found/http-response.adoc[]
+
+If the principal is unauthorized to update one of the assets:
+
+include::{snippets}/assets/update-bulk/one-not-authorized/http-response.adoc[]
+
+
+=== Deleting an asset
+
+==== Request
+
+Via curl:
+include::{snippets}/assets/delete/ok/curl-request.adoc[]
+
+HTTP request:
+include::{snippets}/assets/delete/ok/http-request.adoc[]
+
+===== Request Headers
+include::{snippets}/assets/delete/ok/request-headers.adoc[]
+
+===== Path Parameters
+include::{snippets}/assets/delete/ok/path-parameters.adoc[]
+
+==== Response
+
+===== HTTP response:
+
+Entity exists:
+
+include::{snippets}/assets/delete/ok/http-response.adoc[]
+
+Entity does not exist:
+
+include::{snippets}/assets/delete/not_found/http-response.adoc[]

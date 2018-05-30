@@ -1,0 +1,6 @@
+- targets:
+  - "hostC:9193"
+  labels:
+    hostname: "hostC"
+    port: 9193
+    type: "type-b"

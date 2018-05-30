@@ -1,0 +1,27 @@
+{
+  "assetProperties": {
+    "properties": {
+      "hostname": "my-controller",
+      "port": 3827
+    }
+  },
+  "children": [
+    {
+      "assetId": "firstChild",
+      "assetProperties": {
+        "properties": {
+          "childAssetProperty": "firstChildPropertyValue"
+        }
+      }
+    },
+    {
+      "assetId": "secondChild",
+      "assetProperties": {
+        "properties": {
+          "childAssetProperty": "secondChildPropertyValue"
+        }
+      }
+    }
+
+  ]
+}

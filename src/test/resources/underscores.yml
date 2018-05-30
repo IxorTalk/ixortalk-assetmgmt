@@ -1,0 +1,7 @@
+- targets:
+  - "hostA:9191"
+  labels:
+    hostname: "hostA"
+    label_with_dashes: "labelWithDashesValue"
+    port: 9191
+    type: "type-a"
