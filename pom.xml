@@ -33,7 +33,7 @@
 
 	<name>ixortalk-assetmgmt</name>
 	<description>IxorTalk Asset Management Microservice</description>
-	<url>https://github.com/ixortalkadmin/ixortalk-assetmgmt/tree/master</url>
+	<url>https://github.com/ixortalk/ixortalk-assetmgmt/tree/master</url>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -86,7 +86,7 @@
 	<scm>
 		<connection>scm:git:git@github.com:ixortalkadmin/ixortalk-assetmgmt.git</connection>
 		<developerConnection>scm:git:git@github.com:ixortalkadmin/ixortalk-assetmgmt.git</developerConnection>
-		<url>https://github.com/ixortalkadmin/ixortalk-assetmgmt/tree/master</url>
+		<url>https://github.com/ixortalk/ixortalk-assetmgmt/tree/master</url>
 		<tag>HEAD</tag>
 	</scm>
 
