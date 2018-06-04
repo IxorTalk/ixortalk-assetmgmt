@@ -1,6 +1,6 @@
 # IxorTalk AssetMgmt
 
-For general documentation about the IxorTalk platform: https://github.com/ixortalkadmin/ixortalk-gateway
+For general documentation about the IxorTalk platform: https://github.com/ixortalk/ixortalk-gateway
 
 IxorTalk Assetmgmt is a Sprint Boot Microservice responsible for managing assets within the IxorTalk instance.  It uses Spring Data Rest on top of MongoDb.  
 
