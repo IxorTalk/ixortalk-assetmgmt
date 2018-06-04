@@ -84,8 +84,8 @@
 		</developer>
 	</developers>
 	<scm>
-		<connection>scm:git:git@github.com:ixortalkadmin/ixortalk-assetmgmt.git</connection>
-		<developerConnection>scm:git:git@github.com:ixortalkadmin/ixortalk-assetmgmt.git</developerConnection>
+		<connection>scm:git:git@github.com:ixortalk/ixortalk-assetmgmt.git</connection>
+		<developerConnection>scm:git:git@github.com:ixortalk/ixortalk-assetmgmt.git</developerConnection>
 		<url>https://github.com/ixortalk/ixortalk-assetmgmt/tree/master</url>
 		<tag>HEAD</tag>
 	</scm>
