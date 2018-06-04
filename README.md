@@ -17,6 +17,10 @@ To build without a Docker image being built:
 $ mvn clean install -DskipDocker
 ```
 
+## Running
+
+For easy bootstrapping an IxorTalk instance, see [ixortalk-config-docker](https://github.com/ixortalk/ixortalk-config-docker) which contains a Docker compose configuration for the complete stack.
+
 ## Contributing
 
 Pull request are welcome.
