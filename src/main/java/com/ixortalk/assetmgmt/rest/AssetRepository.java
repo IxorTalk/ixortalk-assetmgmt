@@ -24,6 +24,7 @@
 package com.ixortalk.assetmgmt.rest;
 
 import java.util.List;
+import java.util.Set;
 
 import com.ixortalk.assetmgmt.domain.Asset;
 import com.ixortalk.assetmgmt.domain.AssetId;
@@ -86,8 +87,8 @@ public interface AssetRepository extends MongoRepository<Asset, AssetId>, AssetR
     @PostAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER') or (returnObject!=null and hasAnyRole(returnObject.roles))")
     Asset findOne(AssetId id);
 
-
-
+    @PostAuthorize("hasAnyRole('ROLE_ADMIN')")
+    List<Asset> findByRoles(Set<String> role);
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -112,8 +113,6 @@ public interface AssetRepository extends MongoRepository<Asset, AssetId>, AssetR
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     <S extends Asset> List<S> insert(Iterable<S> entities);
-
-    
     
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
