@@ -23,9 +23,9 @@
  */
 package com.ixortalk.assetmgmt.rest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ixortalk.assetmgmt.AbstractSpringIntegrationTest;
 import com.ixortalk.assetmgmt.domain.Asset;
+import com.jayway.restassured.path.json.JsonPath;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -69,62 +69,60 @@ public class AssetController_FindByRoles_IntegrationTest extends AbstractSpringI
     }
 
     @Test
-    public void asAdmin() throws JsonProcessingException {
+    public void asAdmin() {
 
-        Asset[] assets = given()
+
+        JsonPath assets = given()
                 .contentType(JSON)
                 .auth().oauth2(adminToken().getValue())
-                .body(objectMapper.writeValueAsString(role))
-                .post(ASSETS_BASE_PATH + "/find-by-roles")
+                .get(ASSETS_BASE_PATH +"/search/findByRoles?role="+role)
                 .then()
                 .statusCode(HTTP_OK)
-                .extract().response().as(Asset[].class);
+                .extract().jsonPath();
 
-        assertThat(assets).hasSize(2).extracting(Asset::getAssetId).containsExactly(asset.getAssetId(), asset2.getAssetId());
+        assertThat(assets.getString("_embedded.assets"))
+                .contains(asset.getAssetId().stringValue(), asset2.getAssetId().stringValue());
     }
 
     @Test
-    public void asUser() throws JsonProcessingException {
+    public void asUser() {
 
         given()
                 .contentType(JSON)
                 .auth().oauth2(userToken().getValue())
-                .body(objectMapper.writeValueAsString(role))
-                .post(ASSETS_BASE_PATH + "/find-by-roles")
+                .get(ASSETS_BASE_PATH +"/search/findByRoles?role="+role)
                 .then()
                 .statusCode(HTTP_FORBIDDEN);
     }
 
     @Test
-    public void whenRoleDoesNotExist() throws JsonProcessingException {
+    public void whenRoleDoesNotExist() {
 
-        Asset[] result = given()
+        JsonPath result = given()
                 .contentType(JSON)
                 .auth().oauth2(adminToken().getValue())
-                .body(objectMapper.writeValueAsString("randomRole"))
-                .post(ASSETS_BASE_PATH + "/find-by-roles")
+                .get(ASSETS_BASE_PATH +"/search/findByRoles?role=randomRole")
                 .then()
                 .statusCode(HTTP_OK)
-                .extract().response().as(Asset[].class);
+                .extract().jsonPath();
 
-        assertThat(result).hasSize(0);
+        assertThat(result.getString("_embedded.assets")).doesNotContain(asset.getAssetId().stringValue());
     }
 
     @Test
-    public void whenAssetsDoNotExist() throws JsonProcessingException {
+    public void whenAssetsDoNotExist() {
 
         assetRepository.delete(asset);
         assetRepository.delete(asset2);
 
-        Asset[] result = given()
+        JsonPath result = given()
                 .contentType(JSON)
                 .auth().oauth2(adminToken().getValue())
-                .body(objectMapper.writeValueAsString(role))
-                .post(ASSETS_BASE_PATH + "/find-by-roles")
+                .get(ASSETS_BASE_PATH +"/search/findByRoles?role="+role)
                 .then()
                 .statusCode(HTTP_OK)
-                .extract().response().as(Asset[].class);
+                .extract().jsonPath();
 
-        assertThat(result).hasSize(0);
+        assertThat(result.getString("_embedded.assets")).doesNotContain(asset.getAssetId().stringValue());
     }
 }

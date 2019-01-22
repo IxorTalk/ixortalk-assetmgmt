@@ -23,7 +23,6 @@
  */
 package com.ixortalk.assetmgmt.rest;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -122,12 +121,6 @@ public class AssetRepositoryImpl implements AssetRepositoryCustom {
                     assetRepository.save(asset);
                 });
         return ok().build();
-    }
-
-    @PostMapping(value = "/find-by-roles", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<Asset> findByRoles(@RequestBody String role) {
-        return assetRepository.findByRoles(Collections.singleton(role));
     }
 
     @SuppressWarnings("serial")
