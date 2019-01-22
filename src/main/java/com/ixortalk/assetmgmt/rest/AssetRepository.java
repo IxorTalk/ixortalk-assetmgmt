@@ -33,6 +33,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
@@ -86,8 +87,8 @@ public interface AssetRepository extends MongoRepository<Asset, AssetId>, AssetR
     @PostAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER') or (returnObject!=null and hasAnyRole(returnObject.roles))")
     Asset findOne(AssetId id);
 
-
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    Iterable<Asset> findByRoles(@Param("role") String role);
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -112,8 +113,6 @@ public interface AssetRepository extends MongoRepository<Asset, AssetId>, AssetR
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     <S extends Asset> List<S> insert(Iterable<S> entities);
-
-    
     
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")

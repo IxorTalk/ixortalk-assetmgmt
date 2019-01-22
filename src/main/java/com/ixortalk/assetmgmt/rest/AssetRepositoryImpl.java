@@ -25,7 +25,6 @@ package com.ixortalk.assetmgmt.rest;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -47,6 +46,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import static com.google.common.collect.Iterables.size;
 import static com.ixortalk.assetmgmt.domain.Asset.assetWithProperties;
 import static com.ixortalk.assetmgmt.domain.AssetId.assetId;
+import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.StreamSupport.stream;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -87,7 +87,7 @@ public class AssetRepositoryImpl implements AssetRepositoryCustom {
 
     @PutMapping(value = "/{id}/properties", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateProperties(@PathVariable String id, @RequestBody Map<String, Object> newProperties) {
-        return Optional.ofNullable(assetRepository.findOne(assetId(id)))
+        return ofNullable(assetRepository.findOne(assetId(id)))
                 .map(existingAsset -> {
                     existingAsset.getAssetProperties().putAll(newProperties);
                     assetRepository.save(existingAsset);
