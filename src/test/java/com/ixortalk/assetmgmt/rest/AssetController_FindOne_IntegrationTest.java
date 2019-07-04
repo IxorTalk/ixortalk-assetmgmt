@@ -23,17 +23,17 @@
  */
 package com.ixortalk.assetmgmt.rest;
 
-import java.io.IOException;
-
 import com.ixortalk.assetmgmt.AbstractSpringIntegrationTest;
 import com.ixortalk.assetmgmt.domain.Asset;
 import org.junit.Test;
+
+import java.io.IOException;
 
 import static com.ixortalk.assetmgmt.TestConstants.ASSETS_BASE_PATH;
 import static com.ixortalk.assetmgmt.config.OAuth2ExtendedConfiguration.ROLE_CUSTOMER;
 import static com.ixortalk.assetmgmt.config.OAuth2ExtendedConfiguration.customerRoleToken;
 import static com.ixortalk.assetmgmt.domain.AssetTestBuilder.anAsset;
-import static com.ixortalk.test.oauth2.OAuth2TestTokens.userToken;
+import static com.ixortalk.test.oauth2.OAuth2TestTokens.adminToken;
 import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.http.ContentType.JSON;
 import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
@@ -52,7 +52,7 @@ public class AssetController_FindOne_IntegrationTest extends AbstractSpringInteg
         Asset result = given()
                 .accept(JSON)
                 .contentType(JSON)
-                .auth().oauth2(userToken().getValue())
+                .auth().oauth2(adminToken().getValue())
                 .when()
                 .body("{\"hostname\" : \"" + asset.getAssetProperty("hostname") + "\"}")
                 .post(ASSETS_BASE_PATH + "/find/property")
@@ -104,7 +104,7 @@ public class AssetController_FindOne_IntegrationTest extends AbstractSpringInteg
         given()
                 .accept(JSON)
                 .contentType(JSON)
-                .auth().oauth2(userToken().getValue())
+                .auth().oauth2(adminToken().getValue())
                 .when()
                 .body("{\"hostname\" : \"notFoundHostname\"}")
                 .post(ASSETS_BASE_PATH + "/find/property")
@@ -123,7 +123,7 @@ public class AssetController_FindOne_IntegrationTest extends AbstractSpringInteg
         given()
                 .accept(JSON)
                 .contentType(JSON)
-                .auth().oauth2(userToken().getValue())
+                .auth().oauth2(adminToken().getValue())
                 .when()
                 .body("{\"hostname\" : \"" + asset.getAssetProperty("hostname") + "\"}")
                 .post(ASSETS_BASE_PATH + "/find/property")

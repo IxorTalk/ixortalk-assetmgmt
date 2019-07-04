@@ -23,19 +23,19 @@
  */
 package com.ixortalk.assetmgmt.rest;
 
-import java.io.IOException;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.ixortalk.assetmgmt.AbstractSpringIntegrationTest;
 import com.ixortalk.assetmgmt.domain.Asset;
 import org.junit.Test;
+
+import java.io.IOException;
 
 import static com.ixortalk.assetmgmt.TestConstants.ASSETS_BASE_PATH;
 import static com.ixortalk.assetmgmt.config.OAuth2ExtendedConfiguration.ROLE_CUSTOMER;
 import static com.ixortalk.assetmgmt.config.OAuth2ExtendedConfiguration.customerRoleToken;
 import static com.ixortalk.assetmgmt.domain.AssetPropertiesTestBuilder.anAssetProperties;
 import static com.ixortalk.assetmgmt.domain.AssetTestBuilder.anAsset;
-import static com.ixortalk.test.oauth2.OAuth2TestTokens.userToken;
+import static com.ixortalk.test.oauth2.OAuth2TestTokens.adminToken;
 import static com.jayway.restassured.RestAssured.given;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,7 +49,7 @@ public class AssetController_GetAssets_IntegrationTest extends AbstractSpringInt
     public void noExistingAssets() {
         JsonNode page =
                 given()
-                        .auth().oauth2(userToken().getValue())
+                        .auth().oauth2(adminToken().getValue())
                         .when()
                         .get(ASSETS_BASE_PATH)
                         .then()
@@ -71,7 +71,7 @@ public class AssetController_GetAssets_IntegrationTest extends AbstractSpringInt
         assetRepository.save(objectMapper.readValue(VALID_ASSET_JSON, Asset.class));
 
         JsonNode page = given()
-                .auth().oauth2(userToken().getValue())
+                .auth().oauth2(adminToken().getValue())
                 .when()
                 .get(ASSETS_BASE_PATH)
                 .then()
@@ -116,7 +116,7 @@ public class AssetController_GetAssets_IntegrationTest extends AbstractSpringInt
         assetRepository.save(objectMapper.readValue(VALID_ASSET_JSON, Asset.class));
 
         JsonNode page = given()
-                .auth().oauth2(userToken().getValue())
+                .auth().oauth2(adminToken().getValue())
                 .when()
                 .get(ASSETS_BASE_PATH)
                 .then()
