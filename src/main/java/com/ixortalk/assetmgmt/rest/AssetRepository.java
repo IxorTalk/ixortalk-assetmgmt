@@ -23,8 +23,6 @@
  */
 package com.ixortalk.assetmgmt.rest;
 
-import java.util.List;
-
 import com.ixortalk.assetmgmt.domain.Asset;
 import com.ixortalk.assetmgmt.domain.AssetId;
 import org.springframework.data.domain.Example;
@@ -39,38 +37,40 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import java.util.List;
+
 @RepositoryRestResource
-@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 public interface AssetRepository extends MongoRepository<Asset, AssetId>, AssetRepositoryCustom {
 
 	@Override
     @PreAuthorize("permitAll()")
-    @PostFilter("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_SCHEDULED_TASK') or hasAnyRole(filterObject.roles)")
+    @PostFilter("hasAnyRole('ROLE_ADMIN', 'ROLE_SCHEDULED_TASK') or hasAnyRole(filterObject.roles)")
     List<Asset> findAll();
 
     @Override
     @PreAuthorize("permitAll()")
-    @PostFilter("hasAnyRole('ROLE_ADMIN', 'ROLE_USER') or hasAnyRole(filterObject.roles)")
+    @PostFilter("hasAnyRole('ROLE_ADMIN') or hasAnyRole(filterObject.roles)")
     <S extends Asset> List<S> findAll(Example<S> example);
 
     @Override
     @PreAuthorize("permitAll()")
-    @Query("{roles: ?#{ (hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')) ? {$exists:true} : {$in: @securityService.getAuthorities()} }}")
+    @Query("{roles: ?#{ hasRole('ROLE_ADMIN') ? {$exists:true} : {$in: @securityService.getAuthorities()} }}")
     Page<Asset> findAll(Pageable pageable);
     
     @Override
     @PreAuthorize("permitAll()")
-    @PostFilter("hasAnyRole('ROLE_ADMIN', 'ROLE_USER') or hasAnyRole(filterObject.roles)")
+    @PostFilter("hasAnyRole('ROLE_ADMIN') or hasAnyRole(filterObject.roles)")
     <S extends Asset> List<S> findAll(Example<S> example, Sort sort);
     
     @Override
     @PreAuthorize("permitAll()")
-    @PostFilter("hasAnyRole('ROLE_ADMIN', 'ROLE_USER') or hasAnyRole(filterObject.roles)")
+    @PostFilter("hasAnyRole('ROLE_ADMIN') or hasAnyRole(filterObject.roles)")
     Iterable<Asset> findAll(Iterable<AssetId> ids);
     
     @Override
     @PreAuthorize("permitAll()")
-    @PostFilter("hasAnyRole('ROLE_ADMIN', 'ROLE_USER') or hasAnyRole(filterObject.roles)")
+    @PostFilter("hasAnyRole('ROLE_ADMIN') or hasAnyRole(filterObject.roles)")
     List<Asset> findAll(Sort sort);
     
     
@@ -79,12 +79,12 @@ public interface AssetRepository extends MongoRepository<Asset, AssetId>, AssetR
     
     @Override
     @PreAuthorize("permitAll()")
-    @PostAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER') or (returnObject!=null and hasAnyRole(returnObject.roles))")
+    @PostAuthorize("hasAnyRole('ROLE_ADMIN') or (returnObject!=null and hasAnyRole(returnObject.roles))")
     <S extends Asset> S findOne(Example<S> example);
     
     @Override
     @PreAuthorize("permitAll()")
-    @PostAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER') or (returnObject!=null and hasAnyRole(returnObject.roles))")
+    @PostAuthorize("hasAnyRole('ROLE_ADMIN') or (returnObject!=null and hasAnyRole(returnObject.roles))")
     Asset findOne(AssetId id);
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

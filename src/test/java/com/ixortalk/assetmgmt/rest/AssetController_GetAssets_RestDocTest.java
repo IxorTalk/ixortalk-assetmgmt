@@ -23,14 +23,14 @@
  */
 package com.ixortalk.assetmgmt.rest;
 
-import java.io.IOException;
-
 import com.ixortalk.assetmgmt.AbstractRestDocTest;
 import com.ixortalk.assetmgmt.domain.Asset;
 import org.junit.Test;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
+
+import java.io.IOException;
 
 import static com.ixortalk.assetmgmt.TestConstants.ASSETS_BASE_PATH;
+import static com.ixortalk.test.oauth2.OAuth2TestTokens.adminToken;
 import static com.ixortalk.test.oauth2.OAuth2TestTokens.userToken;
 import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.http.ContentType.JSON;
@@ -48,10 +48,9 @@ public class AssetController_GetAssets_RestDocTest extends AbstractRestDocTest {
     public void success() throws IOException {
         assetRepository.save(objectMapper.readValue(ASSET_JSON, Asset.class));
 
-        OAuth2AccessToken accessTokenWithUserRole = userToken();
         given(this.spec)
                 .accept(JSON)
-                .auth().preemptive().oauth2(accessTokenWithUserRole.getValue())
+                .auth().preemptive().oauth2(adminToken().getValue())
                 .filter(
                         document("assets/get-all/ok",
                                 preprocessResponse(prettyPrint()),
