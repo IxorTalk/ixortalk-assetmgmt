@@ -23,13 +23,13 @@
  */
 package com.ixortalk.assetmgmt.config;
 
+import com.ixortalk.test.oauth2.OAuth2TestTokens;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 
-import static com.ixortalk.test.oauth2.OAuth2TestTokens.getAccessToken;
 import static org.springframework.core.Ordered.LOWEST_PRECEDENCE;
 
 @Configuration
@@ -59,6 +59,6 @@ public class OAuth2ExtendedConfiguration {
     }
 
     public static OAuth2AccessToken customerRoleToken() {
-        return getAccessToken(CLIENT_ID_CUSTOMER_ROLE, CLIENT_SECRET_CUSTOMER_ROLE);
+        return OAuth2TestTokens.getClientCredentialsAccessToken(CLIENT_ID_CUSTOMER_ROLE, CLIENT_SECRET_CUSTOMER_ROLE);
     }
 }
