@@ -29,7 +29,7 @@
 
 	<groupId>com.ixortalk</groupId>
 	<artifactId>ixortalk-assetmgmt</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.3</version>
 
 	<name>ixortalk-assetmgmt</name>
 	<description>IxorTalk Asset Management Microservice</description>
@@ -88,7 +88,7 @@
 		<connection>scm:git:git@github.com:ixortalk/ixortalk-assetmgmt.git</connection>
 		<developerConnection>scm:git:git@github.com:ixortalk/ixortalk-assetmgmt.git</developerConnection>
 		<url>https://github.com/ixortalk/ixortalk-assetmgmt/tree/master</url>
-		<tag>HEAD</tag>
+		<tag>ixortalk-assetmgmt-1.0.3</tag>
 	</scm>
 
 	<distributionManagement>
